@@ -96,7 +96,10 @@ local function RunSimulation(Status, Howlong)
 
 
       local S = streamline({0.0, 0.0, 0.0}, 3.0, 1e-3, "magnetic")
-      visual.draw_lines3d(S)
+      h5_open_file("streamlines.h5", "r+")
+      h5_write_array(string.format("vel%04d", Status.Iteration), S)
+      h5_close_file()
+--      visual.draw_lines3d(S)
       collectgarbage()
 
 
@@ -284,8 +287,8 @@ local function InitSimulation()
 end
 
 
-
-visual.open_window({clear_color={0.1, 0.0, 0.0}})
+h5_open_file("streamlines.h5", "w")
+--visual.open_window({clear_color={0.1, 0.0, 0.0}})
 local MeasureLog = { }
 local Status = InitSimulation()
 
