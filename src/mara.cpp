@@ -929,7 +929,6 @@ int luaC_test_sampling_many(lua_State *L)
 }
 
 
->>>>>>> mpi_sampling
 int luaC_get_prim(lua_State *L)
 {
   ValarrayManager M(Mara->domain->aug_shape(), Mara->domain->get_Nq());
