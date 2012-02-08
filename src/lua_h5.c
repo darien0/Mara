@@ -2,15 +2,17 @@
 
 
 #include "config.h"
-#include "lauxlib.h"
-#include "luaU.h"
+#include "lualib.h"
 #if (__MARA_USE_HDF5)
 
 #include <stdlib.h>
 #include <string.h>
 #include <hdf5.h>
 
+#include "lauxlib.h"
+#include "luaU.h"
 #include "lunum.h"
+
 
 static int luaC_h5_read_string(lua_State *L);
 static int luaC_h5_write_string(lua_State *L);
