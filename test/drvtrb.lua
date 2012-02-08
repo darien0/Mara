@@ -20,7 +20,7 @@ local RunArgs = {
    restart = "none",
    rmdiv   = false, -- run a div-clean on the input field
 }
-
+local StreamlinesFile
 
 -- *****************************************************************************
 -- Function to collect all available measurements from Mara
@@ -94,14 +94,13 @@ local function RunSimulation(Status, Howlong)
 
    while Status.CurrentTime - t0 < Howlong do
 
-
-      local S = streamline({0.0, 0.0, 0.0}, 3.0, 1e-3, "magnetic")
-      h5_open_file("streamlines.h5", "r+")
-      h5_write_array(string.format("vel%04d", Status.Iteration), S)
-      h5_close_file()
---      visual.draw_lines3d(S)
-      collectgarbage()
-
+      if Status.Iteration % 10 == 0 then
+         local S = streamline({0.0, 0.0, 0.0}, 3.0, 1e-3, "magnetic")
+         h5_open_file(StreamlinesFile, "r+")
+         h5_write_array(string.format("mag%04d", Status.Iteration), S)
+         h5_close_file()
+         collectgarbage()
+      end
 
       -- Measurements are made at the beginning of the timestep
       -- .......................................................................
@@ -280,6 +279,10 @@ local function InitSimulation()
       local datadir = string.format("data/%s", RunArgs.id)
       os.execute(string.format("mkdir -p %s", datadir))
       os.execute(host.Filesystem(datadir))
+
+      StreamlinesFile = string.format("%s/stream.h5", datadir)
+      h5_open_file(StreamlinesFile, "w")
+      h5_close_file()
    end
 
    print_mara()
@@ -287,8 +290,6 @@ local function InitSimulation()
 end
 
 
-h5_open_file("streamlines.h5", "w")
---visual.open_window({clear_color={0.1, 0.0, 0.0}})
 local MeasureLog = { }
 local Status = InitSimulation()
 
