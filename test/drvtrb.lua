@@ -96,9 +96,11 @@ local function RunSimulation(Status, Howlong)
 
       if Status.Iteration % 10 == 0 then
          local S = streamline({0.0, 0.0, 0.0}, 3.0, 1e-3, "magnetic")
-         h5_open_file(StreamlinesFile, "r+")
-         h5_write_array(string.format("mag%04d", Status.Iteration), S)
-         h5_close_file()
+	 if mpi_get_rank() == 0 then
+	    h5_open_file(StreamlinesFile, "r+")
+	    h5_write_array(string.format("mag%04d", Status.Iteration), S)
+	    h5_close_file()
+	 end
          collectgarbage()
       end
 
