@@ -112,13 +112,12 @@ function ProblemList.DensityWaveConvergenceRate()
    end
 end
 
-
 function ProblemList.IsentopicConvergenceRate()
    local outf = io.open("isentropic.dat", "w")
    RunArgs.boundary = "periodic"
 
    if RunArgs.dim == 1 then
-      local res_values = { 64, 128, 256, 512, 1024 }
+      local res_values = { 16, 32, 64, 128, 256, 512, 1024 }
    else
       local res_values = { 16, 32, 64, 128}
    end
@@ -141,8 +140,6 @@ function ProblemList.IsentopicConvergenceRate()
       outf:write(N .. " " .. L1 .. "\n")
    end
 end
-
-
 
 function ProblemList.RmhdExplosion()
    RunArgs.fluid   = "rmhd"
