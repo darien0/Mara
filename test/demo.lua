@@ -6,14 +6,19 @@ local util = require 'util'
 local tests = require 'tests'
 
 local RunArgs = {
-   N         = 64,
-   dim       = 1,
+   N         = 32,
+   dim       = 3,
    id        = "test",
    cpi       = -1.0,      -- interval between checkpoints (cpi < 0 => none)
    CFL       = 0.6,
    fixdt     = -1.0,      -- value for uniform time stepping
    tmax      = 0.2,       -- run simulation until
    eosfile   = "none",    -- a tabulated equation of state tabeos.h5
+   ic        = "Shocktube1", -- name of test problem
+   CFL       = 0.4,
+   tmax      = 0.2,
+   noplot    = false,
+   eosfile   = "none", -- tabeos.h5
    fluid     = "euler",
    bound     = "outflow",
    advance   = "rk3",
@@ -26,8 +31,8 @@ local RunArgs = {
    fsplit    = "llf",  -- one of [llf, marq]       ... flux splitting mode
    extrap    = "weno5",-- one of [pcm, plm, weno5] ... reconstruction type
    theta     = 2.0,    -- must be [0,2]            ... theta value for PLM/minmod
-   IS        = "js96", -- one of [js96, b08, sz10] ... smoothness indicator
-   sz10A     = 100.0,  -- should be in [0,100]     ... used by sz10 (see weno.c)
+   IS        = "sz10", -- one of [js96, b08, sz10] ... smoothness indicator
+   sz10A     = 50.0,   -- should be in [0,100]     ... used by sz10 (see weno.c)
 
    -- --------------------------------------------------------------------------
    -- flags for particular initial conditions setups

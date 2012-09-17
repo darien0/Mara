@@ -70,8 +70,8 @@ void lua_fft_load(lua_State *L)
 #define SCALED_YES 1
 
 #define PERMUTE_NONE 0
-#define FFT_FWD (+1)
-#define FFT_REV (-1)
+#define FFT_FWD (-1)
+#define FFT_REV (+1)
 
 static struct fft_plan_3d *call_fft_plan_3d(int *nbuf);
 static double k_at(int i, int j, int k, double *khat);

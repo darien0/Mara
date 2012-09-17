@@ -1,5 +1,3 @@
-
-
 include ../conf/mara.conf
 
 
@@ -42,6 +40,9 @@ luaU.o : luaU.c
 	$(CC) $(CFLAGS) -c $< $(MARA_I) -std=c99
 
 lua_fft.o : lua_fft.cpp
+	$(CC) $(CFLAGS) -c $< $(MARA_I) $(FFTW_I) -DFFT_FFTW
+
+gravity.o : gravity.cpp
 	$(CC) $(CFLAGS) -c $< $(MARA_I) $(FFTW_I) -DFFT_FFTW
 
 lua_h5.o : lua_h5.c
