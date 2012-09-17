@@ -1,7 +1,3 @@
-
-
-
-
 function RunSimulation(CFL, EndTime)
 
    local dt = 0.0

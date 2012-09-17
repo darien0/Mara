@@ -1,4 +1,3 @@
-
 /*
  * -----------------------------------------------------------------------------
  *                      M A R A    H Y D R O    C O D E
@@ -73,6 +72,7 @@ extern "C"
   static int luaC_set_advance(lua_State *L);
   static int luaC_set_driving(lua_State *L);
   static int luaC_set_cooling(lua_State *L);
+  static int luaC_set_sources(lua_State *L);
   static int luaC_config_solver(lua_State *L);
 
   static int luaC_new_ou_field(lua_State *L);
@@ -281,6 +281,7 @@ int main(int argc, char **argv)
   lua_register(L, "set_advance"  , luaC_set_advance);
   lua_register(L, "set_driving"  , luaC_set_driving);
   lua_register(L, "set_cooling"  , luaC_set_cooling);
+  lua_register(L, "set_sources"  , luaC_set_sources);
   lua_register(L, "config_solver", luaC_config_solver);
 
   lua_register(L, "new_ou_field" , luaC_new_ou_field);
@@ -625,6 +626,9 @@ int luaC_print_mara(lua_State *L)
             << std::endl;
   std::cout << "cooling: "
             << (Mara->cooling ? Demangle(typeid(*Mara->cooling).name()) : "NULL")
+            << std::endl;
+  std::cout << "sources: "
+            << (Mara->sources ? Demangle(typeid(*Mara->sources).name()) : "NULL")
             << std::endl;
   std::cout << std::endl;
 
@@ -1499,6 +1503,22 @@ int luaC_set_cooling(lua_State *L)
   return 0;
 }
 
+int luaC_set_sources(lua_State *L)
+{
+  const char *key   = luaL_checkstring(L, 1);
+
+  GravSourceTerms *new_f = NULL;
+
+  if (strcmp("gravity", key) == 0) {
+    new_f = new GravSourceTerms;
+  }
+
+  if (new_f) {
+    if (Mara->sources) delete Mara->sources;
+    Mara->sources = new_f;
+  }
+  return 0;
+}
 
 int luaC_load_shen(lua_State *L)
 {

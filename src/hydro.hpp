@@ -1,4 +1,3 @@
-
 /*------------------------------------------------------------------------------
  * FILE: hydro.hpp
  *
@@ -35,6 +34,7 @@ class RiemannSolver;
 class GodunovOperator;
 class RungeKuttaIntegration;
 class PhysicalUnits;
+class SourceTerms;
 // -----------------------------------------------------------------------------
 
 
@@ -78,6 +78,7 @@ public:
   RungeKuttaIntegration *advance;
   CoolingModule         *cooling;
   DrivingModule         *driving;
+  SourceTerms           *sources;
 
   std::valarray<double> PrimitiveArray;
   std::valarray<int> FailureMask;
@@ -289,6 +290,15 @@ public:
   virtual void Cool(std::valarray<double> &P, double dt) = 0;
   virtual double EnergyRemoved() = 0;
 } ;
+
+class SourceTerms : public HydroModule
+// -----------------------------------------------------------------------------
+{
+public:
+  virtual ~SourceTerms() { }
+  virtual std::valarray<double> AddSources(std::valarray<double> &P) = 0;
+} ;
+
 class PhysicalUnits
 // -----------------------------------------------------------------------------
 {

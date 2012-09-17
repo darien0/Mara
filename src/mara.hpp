@@ -1,5 +1,3 @@
-
-
 #ifndef __MaraApplication_HEADER__
 #define __MaraApplication_HEADER__
 
@@ -12,9 +10,10 @@
 #include "eos.hpp"
 #include "eqnbase.hpp"
 #include "eulers.hpp"
+#include "gravity.hpp"
 #include "hydro.hpp"
 #include "logging.hpp"
-#include "mara.hpp"
+//#include "mara.hpp"
 #include "nrsolver.hpp"
 #include "ornuhl.hpp"
 #include "ou-field.hpp"

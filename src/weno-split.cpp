@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <cstring>
 #include <algorithm>
@@ -32,7 +30,9 @@ std::valarray<double> Deriv::dUdt(const std::valarray<double> &Uin)
   case 2: drive_sweeps_2d(); break;
   case 3: drive_sweeps_3d(); break;
   }
-
+  if (Mara->sources){
+    Lglb += Mara->sources->AddSources(Pglb); //ADD THIS TO EVERYTHING
+  }
   return Lglb;
 }
 
